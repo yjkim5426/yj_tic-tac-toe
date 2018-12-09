@@ -5,26 +5,37 @@ import "./index.css";
 class Square extends React.Component {
   render() {
     return(
-      <button>X</button>
+      <button onClick={this.props.onClick}>X</button>
     )
   }
 }
 
 class Board extends React.Component {
   render() {
+    const game = this.props.game.slice();
+
     return(
       <div>
-        <Square /><Square /><Square />
+        <Square value={game[0]} onClick={() => this.props.handleOnClick(0)}/>
+        {/* <Square value={game[0]}/><Square value={game[1]}/><Square value={game[2]}/> */}
+        {/* <br />
+        <Square value={game[3]}/><Square value={game[4]}/><Square value={game[5]}/>
         <br />
-        <Square /><Square /><Square />
-        <br />
-        <Square /><Square /><Square />
+        <Square value={game[6]}/><Square value={game[7]}/><Square value={game[8]}/> */}
       </div>
     )
   }
 }
 
 class Game extends React.Component {
+  state = {
+    game: Array(9).fill('X'),
+  }
+
+  handleOnClick(i) {
+    console.log("handleOnclick method excuted")
+  }
+
   render() {
     return(
       <div>
@@ -32,7 +43,9 @@ class Game extends React.Component {
           <h1>'X' turn (test)</h1>
         </div>
         <div>
-          <Board />
+          <Board game={this.state.game} 
+                 handleOnClick={(i) => this.handleOnClick(i)}
+          />
         </div>
         <div>
           <ul>
