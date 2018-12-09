@@ -1,12 +1,48 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class Square extends React.Component {
+  render() {
+    return(
+      <button>X</button>
+    )
+  }
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+class Board extends React.Component {
+  render() {
+    return(
+      <div>
+        <Square /><Square /><Square />
+        <br />
+        <Square /><Square /><Square />
+        <br />
+        <Square /><Square /><Square />
+      </div>
+    )
+  }
+}
+
+class Game extends React.Component {
+  render() {
+    return(
+      <div>
+        <div>
+          <h1>'X' turn (test)</h1>
+        </div>
+        <div>
+          <Board />
+        </div>
+        <div>
+          <ul>
+            <li>Go to start game (test)</li>
+            <li>Go to step #1 (test)</li>
+          </ul>
+        </div>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<Game />, document.getElementById("root"));
