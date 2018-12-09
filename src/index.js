@@ -42,12 +42,14 @@ class Game extends React.Component {
     let game = this.state.game.slice();
     const nextTurn = this.state.xIsNext? "X":"O";
     
-    game[i] = nextTurn;
-    
-    this.setState({
-      game: game,
-      xIsNext: !this.state.xIsNext,
-    })
+    if (game[i] == null) {
+      game[i] = nextTurn;
+      
+      this.setState({
+        game: game,
+        xIsNext: !this.state.xIsNext,
+      })
+    }
   }
 
   render() {
