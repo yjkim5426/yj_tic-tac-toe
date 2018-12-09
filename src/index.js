@@ -42,7 +42,7 @@ class Game extends React.Component {
     let game = this.state.game.slice();
     const nextTurn = this.state.xIsNext? "X":"O";
     
-    if (game[i] == null) {
+    if ((game[i] == null) && (this.checkWinner(game) === false)) {
       game[i] = nextTurn;
       
       this.setState({
@@ -52,13 +52,48 @@ class Game extends React.Component {
     }
   }
 
+  checkWinner(game) {
+    const winnerChecker = [
+      [0,1,2],
+      [3,4,5],
+      [6,7,8],
+      [0,3,6],
+      [1,4,7],
+      [2,5,8],
+      [0,4,8],
+      [2,4,6]
+    ];
+
+    for (let i = 0; i < winnerChecker.length; i++) {
+      const value1 = game[winnerChecker[i][0]];
+      const value2 = game[winnerChecker[i][1]];
+      const value3 = game[winnerChecker[i][2]];
+
+      if ((value1 === null || value2 === null) || value3 === null) {
+        return false;
+      }
+
+      if (value1 === value2 && value1 === value3) {
+        return value1;
+      }
+    }
+    return false;
+  }
+
   render() {
+    let gameStatus = this.checkWinner(this.state.game);
     const nextTurn = this.state.xIsNext? "X":"O";
+
+    if (gameStatus === false) {  
+      gameStatus =  nextTurn + " turn";
+    } else {
+      gameStatus = nextTurn + " is winner!";
+    }
 
     return(
       <div>
         <div>
-          <h1>{nextTurn} turn</h1>
+          <h1>{gameStatus}</h1>
         </div>
         <div>
           <Board game={this.state.game} 
