@@ -17,11 +17,16 @@ class Board extends React.Component {
     return(
       <div>
         <Square value={game[0]} onClick={() => this.props.handleOnClick(0)}/>
-        {/* <Square value={game[0]}/><Square value={game[1]}/><Square value={game[2]}/> */}
-        {/* <br />
-        <Square value={game[3]}/><Square value={game[4]}/><Square value={game[5]}/>
+        <Square value={game[1]} onClick={() => this.props.handleOnClick(1)}/>
+        <Square value={game[2]} onClick={() => this.props.handleOnClick(2)}/>
         <br />
-        <Square value={game[6]}/><Square value={game[7]}/><Square value={game[8]}/> */}
+        <Square value={game[3]} onClick={() => this.props.handleOnClick(3)}/>
+        <Square value={game[4]} onClick={() => this.props.handleOnClick(4)}/>
+        <Square value={game[5]} onClick={() => this.props.handleOnClick(5)}/>
+        <br />
+        <Square value={game[6]} onClick={() => this.props.handleOnClick(6)}/>
+        <Square value={game[7]} onClick={() => this.props.handleOnClick(7)}/>
+        <Square value={game[8]} onClick={() => this.props.handleOnClick(8)}/>
       </div>
     )
   }
@@ -46,10 +51,12 @@ class Game extends React.Component {
   }
 
   render() {
+    const nextTurn = this.state.xIsNext? "X":"O";
+
     return(
       <div>
         <div>
-          <h1>'X' turn (test)</h1>
+          <h1>{nextTurn} turn</h1>
         </div>
         <div>
           <Board game={this.state.game} 
