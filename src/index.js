@@ -5,7 +5,7 @@ import "./index.css";
 class Square extends React.Component {
   render() {
     return(
-      <button onClick={this.props.onClick}>{this.props.value}</button>
+      <button onClick={this.props.onClick}>X</button>
     )
   }
 }
@@ -29,20 +29,11 @@ class Board extends React.Component {
 
 class Game extends React.Component {
   state = {
-    game: Array(9).fill(null),
-    xIsNext: true,
+    game: Array(9).fill('X'),
   }
 
   handleOnClick(i) {
-    let game = this.state.game.slice();
-    const nextTurn = this.state.xIsNext? "X":"O";
-    
-    game[i] = nextTurn;
-    
-    this.setState({
-      game: game,
-      xIsNext: !this.state.xIsNext,
-    })
+    console.log("handleOnclick method excuted")
   }
 
   render() {
