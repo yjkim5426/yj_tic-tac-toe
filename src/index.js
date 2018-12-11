@@ -34,20 +34,26 @@ class Board extends React.Component {
 
 class Game extends React.Component {
   state = {
-    game: Array(9).fill(null),
+    games: [{game: Array(9).fill(null)}],
     xIsNext: true,
+    currentIndex: 0,
   }
 
   handleOnClick(i) {
-    let game = this.state.game.slice();
+    const currentIndex = this.state.currentIndex;
+    const currentGame = this.state.games[currentIndex].game;
+    let game = currentGame.slice();
     const nextTurn = this.state.xIsNext? "X":"O";
     
     if ((game[i] == null) && (this.checkWinner(game) === false)) {
       game[i] = nextTurn;
       
       this.setState({
-        game: game,
+        games: this.state.games.concat({
+          game: game,
+        }),
         xIsNext: !this.state.xIsNext,
+        currentIndex: currentIndex + 1,
       })
     }
   }
@@ -81,10 +87,14 @@ class Game extends React.Component {
   }
 
   render() {
-    let gameStatus = this.checkWinner(this.state.game);
+    const currentIndex = this.state.currentIndex;
+    const currentGame = this.state.games[currentIndex].game;
+    let gameStatus = this.checkWinner(currentGame);
     const nextTurn = this.state.xIsNext? "X":"O";
 
-    if (gameStatus === false) {  
+    console.log(this.state.games);
+
+    if (gameStatus === false) {
       gameStatus =  nextTurn + " turn";
     } else {
       gameStatus = nextTurn + " is winner!";
@@ -96,7 +106,7 @@ class Game extends React.Component {
           <h1>{gameStatus}</h1>
         </div>
         <div>
-          <Board game={this.state.game} 
+          <Board game={currentGame} 
                  handleOnClick={(i) => this.handleOnClick(i)}
           />
         </div>
