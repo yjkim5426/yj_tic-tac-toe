@@ -86,14 +86,32 @@ class Game extends React.Component {
     return false;
   }
 
+  jumpTo(index) {
+    this.setState({
+      currentIndex: index,
+    })
+  }
+
   render() {
+    const games = this.state.games;
     const currentIndex = this.state.currentIndex;
-    const currentGame = this.state.games[currentIndex].game;
+    const currentGame = games[currentIndex].game;
+
+    // set game step list
+    const moves = games.map((game, index) => {
+      // when index is 0 "Go to game start"
+      const desc = index ? 'Go to move #' + index : 'Go to game start';
+
+      return (
+        <li key={index}>
+          <button onClick={() => this.jumpTo(index)}>{desc}</button>
+        </li>
+      );
+    });
+    
+    // set game status message
     let gameStatus = this.checkWinner(currentGame);
     const nextTurn = this.state.xIsNext? "X":"O";
-
-    console.log(this.state.games);
-
     if (gameStatus === false) {
       gameStatus =  nextTurn + " turn";
     } else {
@@ -112,8 +130,7 @@ class Game extends React.Component {
         </div>
         <div>
           <ul>
-            <li>Go to start game (test)</li>
-            <li>Go to step #1 (test)</li>
+            {moves}
           </ul>
         </div>
       </div>
